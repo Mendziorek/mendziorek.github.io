@@ -60,14 +60,32 @@
             z-index: 1;
         }
 
-        #notes {
+        #notes-container {
             margin-top: 20px;
             width: 100%;
             max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .note {
+            background-color: #e6e6e6;
             padding: 10px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-            overflow: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .note small {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .delete-button {
+            cursor: pointer;
+            color: red;
+            margin-left: 10px;
         }
 
         #editable-notes {
@@ -80,6 +98,7 @@
             line-height: 1.5;
             box-sizing: border-box;
             overflow: auto;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -103,20 +122,38 @@
         </a>
     </div>
 
-    <div id="notes">
-        <textarea id="editable-notes" placeholder="Napisz swoje notatki..."></textarea>
+    <div id="notes-container">
+        <div id="editable-notes" contenteditable="true" placeholder="Napisz swoje notatki..."></div>
+        <button onclick="saveNote()">Zapisz notatkę</button>
+
+        <div id="notes"></div>
     </div>
 
     <script>
         const editableNotes = document.getElementById('editable-notes');
+        const notesContainer = document.getElementById('notes');
 
-        editableNotes.addEventListener('input', () => {
-            localStorage.setItem('notes', editableNotes.value);
-        });
+        function saveNote() {
+            const noteText = editableNotes.innerHTML.trim();
+            if (noteText !== "") {
+                const date = new Date();
+                const dateString = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 
-        const savedNotes = localStorage.getItem('notes');
-        if (savedNotes) {
-            editableNotes.value = savedNotes;
+                const noteElement = document.createElement('div');
+                noteElement.className = 'note';
+                noteElement.innerHTML = `${noteText}<br><small>${dateString}</small> <span class="delete-button" onclick="deleteNote(this)">Usuń</span>`;
+                
+                notesContainer.appendChild(noteElement);
+                editableNotes.innerHTML = "";
+            }
+        }
+
+        function deleteNote(button) {
+            const confirmation = window.confirm("Czy na pewno chcesz usunąć tę notatkę?");
+            if (confirmation) {
+                const noteElement = button.parentElement;
+                notesContainer.removeChild(noteElement);
+            }
         }
     </script>
 </body>
