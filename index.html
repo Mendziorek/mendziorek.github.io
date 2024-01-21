@@ -40,11 +40,13 @@
             overflow: hidden;
             position: relative;
             border-radius: 15px;
-            transition: transform 0.3s;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .tile:hover {
             transform: scale(1.05);
+            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.7);
         }
 
         .tile img {
@@ -74,7 +76,15 @@
             background-color: #f2f2f2;
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .message-bubbles {
+            max-width: 60%;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
         }
 
         .message-bubble {
@@ -140,7 +150,7 @@
     </style>
 </head>
 <body>
-    <h1>Mercedes-Benz W163 ML55 AMG, 2001</h1>
+    <h1>Mercedes-Benz W163 ML55 AMG</h1>
 
     <div class="tile-container">
         <a href="silnik.html" class="tile">
@@ -154,61 +164,4 @@
         </a>
 
         <a href="asb.html" class="tile">
-            <img src="transmission.jpg" alt="ASB">
-            <div class="tile-label">ASB</div>
-        </a>
-    </div>
-
-    <div class="notes-section">
-        <h2 class="notes-header">Notes</h2>
-
-        <!-- Pole do wpisywania wiadomości -->
-        <input type="text" id="message-input" class="message-input" placeholder="Wpisz wiadomość...">
-        
-        <!-- Przycisk do wysyłania wiadomości -->
-        <button class="send-button" onclick="sendMessage()">Wyślij</button>
-
-        <!-- Wyświetlanie wiadomości w dymkach -->
-        <div id="messages-container" class="message-bubbles"></div>
-    </div>
-
-    <script>
-        // JavaScript do obsługi usuwania wiadomości
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteButtons = document.querySelectorAll('.delete-button');
-
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const messageBubble = this.parentElement;
-                    const confirmDeleteButton = messageBubble.querySelector('.confirm-delete-button');
-                    confirmDeleteButton.style.display = 'block';
-
-                    confirmDeleteButton.addEventListener('click', function () {
-                        messageBubble.remove();
-                    });
-                });
-            });
-        });
-
-        // JavaScript do obsługi wiadomości
-        function sendMessage() {
-            const messageInput = document.getElementById('message-input').value;
-            if (messageInput.trim() !== '') {
-                const messagesContainer = document.getElementById('messages-container');
-                const messageBubble = document.createElement('div');
-                messageBubble.classList.add('message-bubble');
-
-                const messageText = document.createElement('p');
-                messageText.textContent = messageInput;
-
-                const timestamp = document.createElement('div');
-                timestamp.classList.add('message-timestamp');
-                const now = new Date();
-                const timestampText = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-                timestamp.textContent = timestampText;
-
-                const deleteButton = document.createElement('span');
-                deleteButton.classList.add('delete-button');
-                deleteButton.innerHTML = '&#10006;';
-
-                const confirmDeleteButton = document.createElement
+            <img
