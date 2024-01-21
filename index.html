@@ -89,7 +89,7 @@
 
         .delete-button {
             cursor: pointer;
-            color: red;
+            color: #666;
             margin-left: 5px;
         }
 
@@ -155,10 +155,13 @@
 
                 const noteElement = document.createElement('div');
                 noteElement.className = 'note';
-                noteElement.innerHTML = `${noteText}<br><small>${dateString}</small> <span class="delete-button" onclick="deleteNote(this)">❌</span>`;
+                noteElement.innerHTML = `${noteText}<br><small>${dateString}</small><span class="delete-button" onclick="deleteNote(this)">❌</span>`;
                 
                 notesContainer.appendChild(noteElement);
                 editableNotes.innerHTML = "";
+
+                // Zapisanie notatek w localStorage
+                saveNotesToLocalStorage();
             }
         }
 
@@ -167,8 +170,28 @@
             if (confirmation) {
                 const noteElement = button.parentElement;
                 notesContainer.removeChild(noteElement);
+
+                // Zapisanie notatek w localStorage po usunięciu
+                saveNotesToLocalStorage();
             }
         }
+
+        // Funkcja zapisująca notatki w localStorage
+        function saveNotesToLocalStorage() {
+            const notes = document.getElementById('notes').innerHTML;
+            localStorage.setItem('savedNotes', notes);
+        }
+
+        // Funkcja wczytująca notatki z localStorage po załadowaniu strony
+        function loadNotesFromLocalStorage() {
+            const savedNotes = localStorage.getItem('savedNotes');
+            if (savedNotes) {
+                notesContainer.innerHTML = savedNotes;
+            }
+        }
+
+        // Wczytanie notatek z localStorage po załadowaniu strony
+        window.onload = loadNotesFromLocalStorage;
     </script>
 </body>
 </html>
