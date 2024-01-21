@@ -78,16 +78,6 @@
             box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
         }
 
-        .message-bubbles {
-            max-width: 60%;
-            margin: 20px auto;
-            padding: 10px;
-            border-radius: 15px;
-            background-color: #fff;
-            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
-            text-align: left;
-        }
-
         .message-bubble {
             margin: 10px 0;
             padding: 10px;
@@ -189,7 +179,8 @@
         <!-- Przycisk do wysyłania wiadomości -->
         <button class="send-button" onclick="sendMessage()">Wyślij</button>
 
-        <div class="message-bubbles" id="message-bubbles">
+        <!-- Dymki z wiadomościami -->
+        <div id="message-bubbles">
             <!-- Tutaj będą pojawiać się wiadomości -->
         </div>
     </div>
@@ -206,7 +197,6 @@
             // Pobierz treść wiadomości
             const messageContent = messageInput.value.trim();
 
-            // Sprawdź, czy wiadomość nie jest pusta
             if (messageContent !== '') {
                 // Pobierz aktualną datę i godzinę
                 const currentDate = new Date();
