@@ -8,20 +8,11 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
             height: 100vh;
             margin: 0;
-        }
-
-        #header {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            color: black;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
         }
 
         .tile-container {
@@ -29,12 +20,11 @@
             justify-content: space-between;
             max-width: 800px;
             width: 100%;
-            margin-top: 20px;
         }
 
         .tile {
             flex: 1;
-            height: 150px;
+            height: 200px;
             margin: 10px;
             border: 1px solid #ccc;
             text-align: center;
@@ -56,68 +46,53 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
-            font-size: 16px;
+            font-size: 20px;
             font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             z-index: 1;
         }
 
-        #notes-container {
-            margin-top: 20px;
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .note {
-            background-color: #e6e6e6;
+        /* Dodaj styl dla dymków z wiadomościami */
+        .message-bubble {
+            max-width: 70%;
+            margin: 10px auto;
             padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
+            background-color: #f2f2f2; /* Kolor tła dymka */
+            border-radius: 10px;
+            text-align: left;
             position: relative;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
         }
 
-        .note small {
+        /* Styl dla daty i godziny w dymku */
+        .message-timestamp {
             font-size: 12px;
-            color: #666;
+            color: #808080; /* Kolor daty i godziny */
+            margin-top: 5px;
         }
 
+        /* Zmiana koloru znaku X */
         .delete-button {
+            color: #404040; /* Kolor ciemno szary */
             cursor: pointer;
-            color: #666;
-            margin-left: 5px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
         }
 
-        #editable-notes {
-            width: 80%;
-            max-width: 800px;
-            height: 150px;
-            border: 1px solid #ccc;
-            outline: none;
-            padding: 10px;
-            font-size: 16px;
-            line-height: 1.5;
-            box-sizing: border-box;
-            overflow: auto;
-            margin-top: 10px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #submit-button {
-            width: 100%;
-            text-align: right;
-            margin-top: 10px;
+        /* Dodaj przycisk potwierdzenia usuwania */
+        .confirm-delete-button {
+            color: #404040; /* Kolor ciemno szary */
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div id="header">Mercedes-Benz W163 ML55 AMG, 2001</div>
+    <h1 style="font-size: 24px; color: #000; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">Mercedes-Benz W163 ML55 AMG, 2001</h1>
 
     <div class="tile-container">
         <a href="silnik.html" class="tile">
@@ -136,62 +111,33 @@
         </a>
     </div>
 
-    <div id="notes-container">
-        <div id="editable-notes" contenteditable="true" placeholder="Napisz swoje notatki..."></div>
-        <div id="submit-button"><button onclick="saveNote()">Zapisz notatkę</button></div>
-
-        <div id="notes"></div>
+    <div class="message-bubble">
+        <p>Notatki:</p>
+        <div class="message-timestamp">23-01-2024 14:30</div>
+        <div>
+            Wiadomość 1
+            <span class="delete-button">&#10006;</span>
+            <span class="confirm-delete-button">&#10006; Potwierdź</span>
+        </div>
     </div>
 
     <script>
-        const editableNotes = document.getElementById('editable-notes');
-        const notesContainer = document.getElementById('notes');
+        // JavaScript do obsługi usuwania wiadomości
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-button');
 
-        function saveNote() {
-            const noteText = editableNotes.innerHTML.trim();
-            if (noteText !== "") {
-                const date = new Date();
-                const dateString = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const messageBubble = this.parentElement;
+                    const confirmDeleteButton = messageBubble.querySelector('.confirm-delete-button');
+                    confirmDeleteButton.style.display = 'block';
 
-                const noteElement = document.createElement('div');
-                noteElement.className = 'note';
-                noteElement.innerHTML = `${noteText}<br><small>${dateString}</small><span class="delete-button" onclick="deleteNote(this)">❌</span>`;
-                
-                notesContainer.appendChild(noteElement);
-                editableNotes.innerHTML = "";
-
-                // Zapisanie notatek w localStorage
-                saveNotesToLocalStorage();
-            }
-        }
-
-        function deleteNote(button) {
-            const confirmation = window.confirm("Czy na pewno chcesz usunąć tę notatkę?");
-            if (confirmation) {
-                const noteElement = button.parentElement;
-                notesContainer.removeChild(noteElement);
-
-                // Zapisanie notatek w localStorage po usunięciu
-                saveNotesToLocalStorage();
-            }
-        }
-
-        // Funkcja zapisująca notatki w localStorage
-        function saveNotesToLocalStorage() {
-            const notes = document.getElementById('notes').innerHTML;
-            localStorage.setItem('savedNotes', notes);
-        }
-
-        // Funkcja wczytująca notatki z localStorage po załadowaniu strony
-        function loadNotesFromLocalStorage() {
-            const savedNotes = localStorage.getItem('savedNotes');
-            if (savedNotes) {
-                notesContainer.innerHTML = savedNotes;
-            }
-        }
-
-        // Wczytanie notatek z localStorage po załadowaniu strony
-        window.onload = loadNotesFromLocalStorage;
+                    confirmDeleteButton.addEventListener('click', function () {
+                        messageBubble.remove();
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>
