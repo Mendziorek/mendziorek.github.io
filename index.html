@@ -180,8 +180,13 @@
         <button class="send-button" onclick="sendMessage()">Wyślij</button>
 
         <!-- Dymki z wiadomościami -->
-        <div id="message-bubbles">
-            <!-- Tutaj będą pojawiać się wiadomości -->
+        <div id="message-bubbles"></div>
+        
+        <!-- Okno potwierdzające usuwanie -->
+        <div id="confirm-delete" class="confirm-delete-button" style="display: none;">
+            Czy na pewno chcesz usunąć wiadomość?
+            <button onclick="confirmDelete()">Tak</button>
+            <button onclick="cancelDelete()">Nie</button>
         </div>
     </div>
 
@@ -200,4 +205,102 @@
             if (messageContent !== '') {
                 // Pobierz aktualną datę i godzinę
                 const currentDate = new Date();
-                const timestamp = currentDate.toLocale
+                const timestamp = currentDate.toLocaleString();
+
+                // Dodaj wiadomość do tablicy
+                messages.push({
+                    content: messageContent,
+                    timestamp: timestamp
+                });
+
+                // Zapisz tablicę z wiadomościami w local storage
+                localStorage.setItem('messages', JSON.stringify(messages));
+
+                // Wyczyść pole do wpisywania wiadomości
+                messageInput.value = '';
+
+                // Wygeneruj dymek z nową wiadomością
+                generateMessageBubble(messageContent, timestamp);
+            }
+        }
+
+        // Funkcja do generowania dymka z wiadomością
+        function generateMessageBubble(content, timestamp) {
+            const messageBubbles = document.getElementById('message-bubbles');
+
+            // Stwórz nowy element dla dymka z wiadomością
+            const messageBubble = document.createElement('div');
+            messageBubble.classList.add('message-bubble');
+
+            // Dodaj treść wiadomości
+            const messageContent = document.createElement('div');
+            messageContent.classList.add('message-content');
+            messageContent.textContent = content;
+
+            // Dodaj datę i godzinę
+            const messageTimestamp = document.createElement('div');
+            messageTimestamp.classList.add('message-timestamp');
+            messageTimestamp.textContent = timestamp;
+
+            // Dodaj przycisk do usuwania wiadomości
+            const deleteButton = document.createElement('div');
+            deleteButton.classList.add('delete-button');
+            deleteButton.textContent = 'X';
+            deleteButton.onclick = function () {
+                // Pokaż okno potwierdzające usuwanie
+                const confirmDelete = document.getElementById('confirm-delete');
+                confirmDelete.style.display = 'block';
+
+                // Ustaw funkcję potwierdzającą usuwanie
+                document.getElementById('confirm-delete').onclick = function () {
+                    // Usuń dymek
+                    messageBubbles.removeChild(messageBubble);
+
+                    // Usuń wiadomość z tablicy
+                    const index = messages.findIndex((msg) => msg.timestamp === timestamp);
+                    if (index !== -1) {
+                        messages.splice(index, 1);
+                        localStorage.setItem('messages', JSON.stringify(messages));
+                    }
+
+                    // Ukryj okno potwierdzające usuwanie
+                    confirmDelete.style.display = 'none';
+                };
+
+                // Ustaw funkcję anulującą usuwanie
+                document.getElementById('confirm-delete-no').onclick = function () {
+                    // Ukryj okno potwierdzające usuwanie
+                    confirmDelete.style.display = 'none';
+                };
+            };
+
+            // Dodaj wszystkie elementy do dymka
+            messageBubble.appendChild(messageContent);
+            messageBubble.appendChild(messageTimestamp);
+            messageBubble.appendChild(deleteButton);
+
+            // Dodaj dymek do kontenera
+            messageBubbles.appendChild(messageBubble);
+        }
+
+        // Funkcja potwierdzająca usuwanie
+        function confirmDelete() {
+            const confirmDelete = document.getElementById('confirm-delete');
+            confirmDelete.style.display = 'none';
+        }
+
+        // Funkcja anulująca usuwanie
+        function cancelDelete() {
+            const confirmDelete = document.getElementById('confirm-delete');
+            confirmDelete.style.display = 'none';
+        }
+
+        // Wczytaj istniejące wiadomości przy załadowaniu strony
+        window.onload = function () {
+            messages.forEach((msg) => {
+                generateMessageBubble(msg.content, msg.timestamp);
+            });
+        };
+    </script>
+</body>
+</html>
