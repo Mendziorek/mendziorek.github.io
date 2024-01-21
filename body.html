@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podstrona BODY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .tile-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .tile {
+            flex: 0 0 calc(16.66% - 20px);
+            height: 0;
+            padding-bottom: 16.66%;
+            margin: 10px;
+            border: 1px solid #ccc;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .tile-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="goBack()">Powrót do strony głównej</button>
+
+    <div class="tile-container">
+        <!-- Poniżej znajdują się kafelki dla podstrony "BODY" -->
+        <div class="tile">
+            <img src="body_illustration1.jpg" alt="ZESPÓŁ ELEMENTÓW MOCUJĄCYCH">
+            <div class="tile-label">ZESPÓŁ ELEMENTÓW MOCUJĄCYCH</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration2.jpg" alt="ZAWIESZENIE SILNIKA">
+            <div class="tile-label">ZAWIESZENIE SILNIKA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration3.jpg" alt="SPRZĘGŁO">
+            <div class="tile-label">SPRZĘGŁO</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration4.jpg" alt="MECHANIZM PRZEŁĄCZANIA BIEGÓW">
+            <div class="tile-label">MECHANIZM PRZEŁĄCZANIA BIEGÓW</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration5.jpg" alt="AUTOMATYCZNA SKRZYNIA BIEGÓW">
+            <div class="tile-label">AUTOMATYCZNA SKRZYNIA BIEGÓW</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration6.jpg" alt="SKRZYNIA ROZDZIELCZA">
+            <div class="tile-label">SKRZYNIA ROZDZIELCZA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration7.jpg" alt="ZESPÓŁ PEDAŁÓW">
+            <div class="tile-label">ZESPÓŁ PEDAŁÓW</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration8.jpg" alt="STEROWNIK">
+            <div class="tile-label">STEROWNIK</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration9.jpg" alt="RAMA">
+            <div class="tile-label">RAMA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration10.jpg" alt="RESORY I ZAWIESZENIE">
+            <div class="tile-label">RESORY I ZAWIESZENIE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration11.jpg" alt="OŚ PRZEDNIA">
+            <div class="tile-label">OŚ PRZEDNIA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration12.jpg" alt="OŚ TYLNA">
+            <div class="tile-label">OŚ TYLNA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration13.jpg" alt="KOŁA">
+            <div class="tile-label">KOŁA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration14.jpg" alt="WAŁ NAPĘDOWY">
+            <div class="tile-label">WAŁ NAPĘDOWY</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration15.jpg" alt="HAMULCE">
+            <div class="tile-label">HAMULCE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration16.jpg" alt="UKŁAD KIEROWNICZY">
+            <div class="tile-label">UKŁAD KIEROWNICZY</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration17.jpg" alt="UKŁAD PALIWOWY">
+            <div class="tile-label">UKŁAD PALIWOWY</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration18.jpg" alt="UKŁAD WYDECHOWY">
+            <div class="tile-label">UKŁAD WYDECHOWY</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration19.jpg" alt="CHŁODNICA">
+            <div class="tile-label">CHŁODNICA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration20.jpg" alt="PŁYTA PODWOZIA">
+            <div class="tile-label">PŁYTA PODWOZIA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration21.jpg" alt="WYPOSAŻENIE I URZĄDZENIA ELEKTRYCZNE">
+            <div class="tile-label">WYPOSAŻENIE I URZĄDZENIA ELEKTRYCZNE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration22.jpg" alt="NARZĘDZIA I AKCESORIA">
+            <div class="tile-label">NARZĘDZIA I AKCESORIA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration23.jpg" alt="BODY IN WHITE">
+            <div class="tile-label">BODY IN WHITE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration24.jpg" alt="RAMA POMOCNICZA">
+            <div class="tile-label">RAMA POMOCNICZA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration25.jpg" alt="PANEL PRZEDNI">
+            <div class="tile-label">PANEL PRZEDNI</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration26.jpg" alt="PANELE BOCZNE">
+            <div class="tile-label">PANELE BOCZNE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration27.jpg" alt="DACH">
+            <div class="tile-label">DACH</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration28.jpg" alt="TAPICERKA I WYKŁADZINY">
+            <div class="tile-label">TAPICERKA I WYKŁADZINY</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration29.jpg" alt="DRZWI PRZEDNIE">
+            <div class="tile-label">DRZWI PRZEDNIE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration30.jpg" alt="TYLNE DRZWI">
+            <div class="tile-label">TYLNE DRZWI</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration31.jpg" alt="REAR-END DOOR">
+            <div class="tile-label">REAR-END DOOR</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration32.jpg" alt="DACH PRZESUWANY - PODNOSZONY ELEKTRYCZNIE">
+            <div class="tile-label">DACH PRZESUWANY - PODNOSZONY ELEKTRYCZNIE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration33.jpg" alt="INSTALACJA ELEKTRYCZNA">
+            <div class="tile-label">INSTALACJA ELEKTRYCZNA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration34.jpg" alt="OGRZEWANIE I WENTYLACJA">
+            <div class="tile-label">OGRZEWANIE I WENTYLACJA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration35.jpg" alt="SPRYSKIWACZE SZYBY PRZEDNIEJ, URZĄDZENIA BEZPIECZEŃSTWA">
+            <div class="tile-label">SPRYSKIWACZE SZYBY PRZEDNIEJ, URZĄDZENIA BEZPIECZEŃSTWA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration36.jpg" alt="CZĘŚCI ZAMIENNE">
+            <div class="tile-label">CZĘŚCI ZAMIENNE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration37.jpg" alt="FOTELE PRZEDNIE">
+            <div class="tile-label">FOTELE PRZEDNIE</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration38.jpg" alt="TYLNA ŁAWKA">
+            <div class="tile-label">TYLNA ŁAWKA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration39.jpg" alt="FOTEL SKŁADANY">
+            <div class="tile-label">FOTEL SKŁADANY</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration40.jpg" alt="AKCESORIA">
+            <div class="tile-label">AKCESORIA</div>
+        </div>
+
+        <div class="tile">
+            <img src="body_illustration41.jpg" alt="WYPOSAŻENIE SPECJALNE">
+            <div class="tile-label">WYPOSAŻENIE SPECJALNE</div>
+        </div>
+
+        <!-- Dodaj pozostałe kafelki z listy -->
+
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

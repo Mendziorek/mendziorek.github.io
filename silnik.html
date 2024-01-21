@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona z Kafelkami</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .tile-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .tile {
+            flex: 1;
+            height: 150px;
+            border: 1px solid #ccc;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .tile-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .back-button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="back-button" onclick="goBack()">Powrót do strony głównej</button>
+
+    <div class="tile-container">
+        <a href="01_KORPUS_SILNIKA.html" class="tile">
+            <div class="tile-label">KORPUS SILNIKA</div>
+        </a>
+
+        <a href="02_CZESCI_RUCHOME.html" class="tile">
+            <div class="tile-label">CZĘŚCI RUCHOME</div>
+        </a>
+
+        <a href="03_ROZRZAD.html" class="tile">
+            <div class="tile-label">ROZRZĄD</div>
+        </a>
+
+        <a href="04_UKLAD_WTRYSKOWY.html" class="tile">
+            <div class="tile-label">UKŁAD WTRYSKOWY</div>
+        </a>
+
+        <a href="05_AIR_FILTER.html" class="tile">
+            <div class="tile-label">AIR FILTER</div>
+        </a>
+
+        <a href="06_POMPA_WSP_KLIMATYZACJI.html" class="tile">
+            <div class="tile-label">POMPA WSPOMAGANIA UKŁADU KIEROWNICZEGO, SPRĘŻARKA KLIMATYZACJI</div>
+        </a>
+
+        <a href="07_KOLEKTORY_WLOTOWE_WYDECHOWE.html" class="tile">
+            <div class="tile-label">KOLEKTORY WLOTOWE I KOLEKTORY WYDECHOWE</div>
+        </a>
+
+        <a href="08_WYPOSAZENIE_ELEKTRYCZNE.html" class="tile">
+            <div class="tile-label">WYPOSAŻENIE ELEKTRYCZNE</div>
+        </a>
+
+        <a href="09_UKLAD_SMAROWANIA_SILNIKA.html" class="tile">
+            <div class="tile-label">UKŁAD SMAROWANIA SILNIKA</div>
+        </a>
+
+        <a href="10_SYSTEM_CHLODZENIA_SILNIKA.html" class="tile">
+            <div class="tile-label">SYSTEM CHŁODZENIA SILNIKA</div>
+        </a>
+
+        <a href="11_ZAWIESZENIE_SILNIKA.html" class="tile">
+            <div class="tile-label">ZAWIESZENIE SILNIKA</div>
+        </a>
+
+        <a href="12_WIAZKI_PRZEWODOW_SILNIKA.html" class="tile">
+            <div class="tile-label">WIĄZKI PRZEWODÓW SILNIKA</div>
+        </a>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+
+</html>
