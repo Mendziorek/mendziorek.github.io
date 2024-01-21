@@ -89,6 +89,32 @@
             transform: translate(-50%, -50%);
             display: none;
         }
+
+        /* Dodaj styl dla sekcji notatki */
+        .notes-section {
+            max-width: 70%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        /* Styl dla pola do wpisywania wiadomości */
+        .message-input {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Styl dla przycisku wysyłania wiadomości */
+        .send-button {
+            padding: 10px;
+            background-color: #4CAF50; /* Zielony kolor przycisku */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -111,14 +137,23 @@
         </a>
     </div>
 
-    <div class="message-bubble">
-        <p>Notatki:</p>
-        <div class="message-timestamp">23-01-2024 14:30</div>
-        <div>
-            Wiadomość 1
-            <span class="delete-button">&#10006;</span>
-            <span class="confirm-delete-button">&#10006; Potwierdź</span>
+    <div class="notes-section">
+        <h2 style="font-size: 20px; color: #000; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">Notes</h2>
+        <div class="message-bubble">
+            <p>Notatki:</p>
+            <div class="message-timestamp">23-01-2024 14:30</div>
+            <div>
+                Wiadomość 1
+                <span class="delete-button">&#10006;</span>
+                <span class="confirm-delete-button">&#10006; Potwierdź</span>
+            </div>
         </div>
+
+        <!-- Pole do wpisywania wiadomości -->
+        <input type="text" class="message-input" placeholder="Wpisz wiadomość...">
+        
+        <!-- Przycisk do wysyłania wiadomości -->
+        <button class="send-button">Wyślij</button>
     </div>
 
     <script>
