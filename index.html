@@ -183,17 +183,110 @@
     <div class="notes-section">
         <h2 class="notes-header">Notes</h2>
 
-        <div class="message-bubbles" id="message-bubbles">
-            <!-- Tutaj będą pojawiać się wiadomości -->
-        </div>
-
         <!-- Pole do wpisywania wiadomości -->
         <input type="text" id="message-input" class="message-input" placeholder="Wpisz wiadomość...">
         
         <!-- Przycisk do wysyłania wiadomości -->
         <button class="send-button" onclick="sendMessage()">Wyślij</button>
 
-        <!-- Przycisk potwierdzenia usunięcia wiadomości -->
-        <div class="confirm-delete-button" id="confirm-delete-button">
-            Potwierdź usunięcie wiadomości
-            <button class="delete-button" onclick="deleteMessage()">X
+        <div class="message-bubbles" id="message-bubbles">
+            <!-- Tutaj będą pojawiać się wiadomości -->
+        </div>
+    </div>
+
+    <script>
+        // Inicjalizacja tablicy do przechowywania wiadomości
+        let messages = [];
+
+        // Funkcja do dodawania wiadomości
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageBubbles = document.getElementById('message-bubbles');
+
+            // Pobierz treść wiadomości
+            const messageContent = messageInput.value.trim();
+
+            // Sprawdź, czy wiadomość nie jest pusta
+            if (messageContent !== '') {
+                // Pobierz aktualną datę i godzinę
+                const currentDate = new Date();
+                const timestamp = currentDate.toLocaleString();
+
+                // Dodaj wiadomość do tablicy
+                messages.push({
+                    content: messageContent,
+                    timestamp: timestamp
+                });
+
+                // Zresetuj pole do wpisywania
+                messageInput.value = '';
+
+                // Odśwież widok wiadomości
+                updateMessageView(messageBubbles);
+            }
+        }
+
+        // Funkcja do aktualizacji widoku wiadomości
+        function updateMessageView(messageBubblesContainer) {
+            // Wyczyść aktualny widok wiadomości
+            messageBubblesContainer.innerHTML = '';
+
+            // Dodaj nowe wiadomości
+            messages.forEach(message => {
+                const messageBubble = createMessageBubble(message.content, message.timestamp);
+                messageBubblesContainer.appendChild(messageBubble);
+            });
+        }
+
+        // Funkcja do tworzenia dymka z wiadomością
+        function createMessageBubble(content, timestamp) {
+            const messageBubble = document.createElement('div');
+            messageBubble.classList.add('message-bubble');
+
+            const messageContent = document.createElement('div');
+            messageContent.classList.add('message-content');
+            messageContent.innerText = content;
+
+            const timestampElement = document.createElement('div');
+            timestampElement.classList.add('message-timestamp');
+            timestampElement.innerText = timestamp;
+
+            const deleteButton = document.createElement('div');
+            deleteButton.classList.add('delete-button');
+            deleteButton.innerText = 'X';
+            deleteButton.onclick = function () {
+                // Funkcja do obsługi usunięcia wiadomości
+                showDeleteConfirmation(messageBubble);
+            };
+
+            // Dodaj elementy do dymka
+            messageBubble.appendChild(messageContent);
+            messageBubble.appendChild(timestampElement);
+            messageBubble.appendChild(deleteButton);
+
+            return messageBubble;
+        }
+
+        // Funkcja do wyświetlenia potwierdzenia usunięcia wiadomości
+        function showDeleteConfirmation(messageBubble) {
+            const confirmDeleteButton = document.querySelector('.confirm-delete-button');
+
+            // Pokaż przycisk potwierdzenia
+            confirmDeleteButton.style.display = 'block';
+
+            // Funkcja do obsługi potwierdzenia usunięcia
+            confirmDeleteButton.onclick = function () {
+                // Usuń wiadomość
+                const index = Array.from(messageBubble.parentNode.children).indexOf(messageBubble);
+                messages.splice(index, 1);
+
+                // Odśwież widok wiadomości
+                updateMessageView(messageBubble.parentNode);
+
+                // Schowaj przycisk potwierdzenia
+                confirmDeleteButton.style.display = 'none';
+            };
+        }
+    </script>
+</body>
+</html>
