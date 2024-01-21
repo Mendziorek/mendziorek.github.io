@@ -18,9 +18,10 @@
         #header {
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             color: black;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .tile-container {
@@ -55,7 +56,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             z-index: 1;
         }
@@ -75,6 +76,10 @@
             margin-top: 10px;
             border-radius: 5px;
             position: relative;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
         }
 
         .note small {
@@ -85,11 +90,12 @@
         .delete-button {
             cursor: pointer;
             color: red;
-            margin-left: 10px;
+            margin-left: 5px;
         }
 
         #editable-notes {
-            width: 100%;
+            width: 80%;
+            max-width: 800px;
             height: 150px;
             border: 1px solid #ccc;
             outline: none;
@@ -98,6 +104,14 @@
             line-height: 1.5;
             box-sizing: border-box;
             overflow: auto;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #submit-button {
+            width: 100%;
+            text-align: right;
             margin-top: 10px;
         }
     </style>
@@ -124,7 +138,7 @@
 
     <div id="notes-container">
         <div id="editable-notes" contenteditable="true" placeholder="Napisz swoje notatki..."></div>
-        <button onclick="saveNote()">Zapisz notatkę</button>
+        <div id="submit-button"><button onclick="saveNote()">Zapisz notatkę</button></div>
 
         <div id="notes"></div>
     </div>
@@ -141,7 +155,7 @@
 
                 const noteElement = document.createElement('div');
                 noteElement.className = 'note';
-                noteElement.innerHTML = `${noteText}<br><small>${dateString}</small> <span class="delete-button" onclick="deleteNote(this)">Usuń</span>`;
+                noteElement.innerHTML = `${noteText}<br><small>${dateString}</small> <span class="delete-button" onclick="deleteNote(this)">❌</span>`;
                 
                 notesContainer.appendChild(noteElement);
                 editableNotes.innerHTML = "";
