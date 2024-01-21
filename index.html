@@ -96,20 +96,30 @@
             box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
             text-align: left;
             position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .message-timestamp {
+        .message-content {
+            flex: 1;
+        }
+
+        .message-timestamp,
+        .delete-button {
             font-size: 12px;
             color: #808080;
             margin-top: 5px;
+            display: none;
+        }
+
+        .message-bubble:hover .message-timestamp,
+        .message-bubble:hover .delete-button {
+            display: block;
         }
 
         .delete-button {
-            color: #404040;
             cursor: pointer;
-            position: absolute;
-            top: 5px;
-            right: 5px;
         }
 
         .confirm-delete-button {
@@ -173,8 +183,17 @@
     <div class="notes-section">
         <h2 class="notes-header">Notes</h2>
 
+        <div class="message-bubbles" id="message-bubbles">
+            <!-- Tutaj będą pojawiać się wiadomości -->
+        </div>
+
         <!-- Pole do wpisywania wiadomości -->
         <input type="text" id="message-input" class="message-input" placeholder="Wpisz wiadomość...">
         
         <!-- Przycisk do wysyłania wiadomości -->
-        <button class="send-button" onclick="sendMessage()">Wyślij</
+        <button class="send-button" onclick="sendMessage()">Wyślij</button>
+
+        <!-- Przycisk potwierdzenia usunięcia wiadomości -->
+        <div class="confirm-delete-button" id="confirm-delete-button">
+            Potwierdź usunięcie wiadomości
+            <button class="delete-button" onclick="deleteMessage()">X
