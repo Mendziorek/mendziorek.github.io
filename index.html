@@ -72,11 +72,14 @@
 
         #editable-notes {
             width: 100%;
-            height: 100%;
-            border: none;
+            height: 150px;
+            border: 1px solid #ccc;
             outline: none;
+            padding: 10px;
             font-size: 16px;
             line-height: 1.5;
+            box-sizing: border-box;
+            overflow: auto;
         }
     </style>
 </head>
@@ -101,25 +104,20 @@
     </div>
 
     <div id="notes">
-        <div id="editable-notes" contenteditable="true">
-            <!-- Tutaj można wpisać notatki -->
-        </div>
+        <textarea id="editable-notes" placeholder="Napisz swoje notatki..."></textarea>
     </div>
 
     <script>
-        // Zapisywanie notatek w local storage
         const editableNotes = document.getElementById('editable-notes');
 
         editableNotes.addEventListener('input', () => {
-            localStorage.setItem('notes', editableNotes.innerHTML);
+            localStorage.setItem('notes', editableNotes.value);
         });
 
-        // Wczytywanie notatek z local storage
         const savedNotes = localStorage.getItem('notes');
         if (savedNotes) {
-            editableNotes.innerHTML = savedNotes;
+            editableNotes.value = savedNotes;
         }
     </script>
 </body>
 </html>
-
