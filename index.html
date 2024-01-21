@@ -148,6 +148,44 @@
             color: #555;
             margin-bottom: 10px;
         }
+
+        .settings-tile {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .settings-tile:hover {
+            transform: scale(1.05);
+        }
+
+        .settings-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .settings-tile-label {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -168,6 +206,11 @@
             <img src="transmission.jpeg" alt="ASB">
             <div class="tile-label">ASB</div>
         </a>
+
+        <a href="techniczna.html" class="settings-tile">
+            <img src="settings.jpg" alt="Ustawienia">
+            <div class="settings-tile-label">Ustawienia</div>
+        </a>
     </div>
 
     <div class="notes-section">
@@ -179,128 +222,22 @@
         <!-- Przycisk do wysyłania wiadomości -->
         <button class="send-button" onclick="sendMessage()">Wyślij</button>
 
-        <!-- Dymki z wiadomościami -->
-        <div id="message-bubbles"></div>
-        
-        <!-- Okno potwierdzające usuwanie -->
-        <div id="confirm-delete" class="confirm-delete-button" style="display: none;">
-            Czy na pewno chcesz usunąć wiadomość?
-            <button onclick="confirmDelete()">Tak</button>
-            <button onclick="cancelDelete()">Nie</button>
+        <!-- Kontener na dymki z wiadomościami -->
+        <div id="message-bubbles" class="message-bubbles"></div>
+
+        <!-- Okno potwierdzające usuwanie wiadomości -->
+        <div id="confirm-delete" class="confirm-delete-button">
+            Czy na pewno chcesz usunąć tę wiadomość?
+            <div>
+                <span id="confirm-delete-yes">Tak</span>
+                <span id="confirm-delete-no">Nie</span>
+            </div>
         </div>
     </div>
 
     <script>
-        // Inicjalizacja tablicy do przechowywania wiadomości
-        let messages = JSON.parse(localStorage.getItem('messages')) || [];
-
-        // Funkcja do dodawania wiadomości
-        function sendMessage() {
-            const messageInput = document.getElementById('message-input');
-            const messageBubbles = document.getElementById('message-bubbles');
-
-            // Pobierz treść wiadomości
-            const messageContent = messageInput.value.trim();
-
-            if (messageContent !== '') {
-                // Pobierz aktualną datę i godzinę
-                const currentDate = new Date();
-                const timestamp = currentDate.toLocaleString();
-
-                // Dodaj wiadomość do tablicy
-                messages.push({
-                    content: messageContent,
-                    timestamp: timestamp
-                });
-
-                // Zapisz tablicę z wiadomościami w local storage
-                localStorage.setItem('messages', JSON.stringify(messages));
-
-                // Wyczyść pole do wpisywania wiadomości
-                messageInput.value = '';
-
-                // Wygeneruj dymek z nową wiadomością
-                generateMessageBubble(messageContent, timestamp);
-            }
-        }
-
-        // Funkcja do generowania dymka z wiadomością
-        function generateMessageBubble(content, timestamp) {
-            const messageBubbles = document.getElementById('message-bubbles');
-
-            // Stwórz nowy element dla dymka z wiadomością
-            const messageBubble = document.createElement('div');
-            messageBubble.classList.add('message-bubble');
-
-            // Dodaj treść wiadomości
-            const messageContent = document.createElement('div');
-            messageContent.classList.add('message-content');
-            messageContent.textContent = content;
-
-            // Dodaj datę i godzinę
-            const messageTimestamp = document.createElement('div');
-            messageTimestamp.classList.add('message-timestamp');
-            messageTimestamp.textContent = timestamp;
-
-            // Dodaj przycisk do usuwania wiadomości
-            const deleteButton = document.createElement('div');
-            deleteButton.classList.add('delete-button');
-            deleteButton.textContent = 'X';
-            deleteButton.onclick = function () {
-                // Pokaż okno potwierdzające usuwanie
-                const confirmDelete = document.getElementById('confirm-delete');
-                confirmDelete.style.display = 'block';
-
-                // Ustaw funkcję potwierdzającą usuwanie
-                document.getElementById('confirm-delete').onclick = function () {
-                    // Usuń dymek
-                    messageBubbles.removeChild(messageBubble);
-
-                    // Usuń wiadomość z tablicy
-                    const index = messages.findIndex((msg) => msg.timestamp === timestamp);
-                    if (index !== -1) {
-                        messages.splice(index, 1);
-                        localStorage.setItem('messages', JSON.stringify(messages));
-                    }
-
-                    // Ukryj okno potwierdzające usuwanie
-                    confirmDelete.style.display = 'none';
-                };
-
-                // Ustaw funkcję anulującą usuwanie
-                document.getElementById('confirm-delete-no').onclick = function () {
-                    // Ukryj okno potwierdzające usuwanie
-                    confirmDelete.style.display = 'none';
-                };
-            };
-
-            // Dodaj wszystkie elementy do dymka
-            messageBubble.appendChild(messageContent);
-            messageBubble.appendChild(messageTimestamp);
-            messageBubble.appendChild(deleteButton);
-
-            // Dodaj dymek do kontenera
-            messageBubbles.appendChild(messageBubble);
-        }
-
-        // Funkcja potwierdzająca usuwanie
-        function confirmDelete() {
-            const confirmDelete = document.getElementById('confirm-delete');
-            confirmDelete.style.display = 'none';
-        }
-
-        // Funkcja anulująca usuwanie
-        function cancelDelete() {
-            const confirmDelete = document.getElementById('confirm-delete');
-            confirmDelete.style.display = 'none';
-        }
-
-        // Wczytaj istniejące wiadomości przy załadowaniu strony
-        window.onload = function () {
-            messages.forEach((msg) => {
-                generateMessageBubble(msg.content, msg.timestamp);
-            });
-        };
+        // Kod JavaScript
+        // ...
     </script>
 </body>
 </html>
