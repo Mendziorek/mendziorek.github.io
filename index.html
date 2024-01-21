@@ -52,36 +52,38 @@
             z-index: 1;
         }
 
-        /* Dodaj styl dla dymków z wiadomościami */
+        .notes-section {
+            max-width: 70%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
         .message-bubble {
             max-width: 70%;
             margin: 10px auto;
             padding: 10px;
-            background-color: #f2f2f2; /* Kolor tła dymka */
+            background-color: #f2f2f2;
             border-radius: 10px;
             text-align: left;
             position: relative;
         }
 
-        /* Styl dla daty i godziny w dymku */
         .message-timestamp {
             font-size: 12px;
-            color: #808080; /* Kolor daty i godziny */
+            color: #808080;
             margin-top: 5px;
         }
 
-        /* Zmiana koloru znaku X */
         .delete-button {
-            color: #404040; /* Kolor ciemno szary */
+            color: #404040;
             cursor: pointer;
             position: absolute;
             top: 5px;
             right: 5px;
         }
 
-        /* Dodaj przycisk potwierdzenia usuwania */
         .confirm-delete-button {
-            color: #404040; /* Kolor ciemno szary */
+            color: #404040;
             cursor: pointer;
             position: absolute;
             top: 50%;
@@ -90,26 +92,17 @@
             display: none;
         }
 
-        /* Dodaj styl dla sekcji notatki */
-        .notes-section {
-            max-width: 70%;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        /* Styl dla pola do wpisywania wiadomości */
         .message-input {
-            width: 70%;
+            width: 60%;
             padding: 10px;
             margin-right: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        /* Styl dla przycisku wysyłania wiadomości */
         .send-button {
             padding: 10px;
-            background-color: #4CAF50; /* Zielony kolor przycisku */
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
@@ -139,21 +132,15 @@
 
     <div class="notes-section">
         <h2 style="font-size: 20px; color: #000; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">Notes</h2>
-        <div class="message-bubble">
-            <p>Notatki:</p>
-            <div class="message-timestamp">23-01-2024 14:30</div>
-            <div>
-                Wiadomość 1
-                <span class="delete-button">&#10006;</span>
-                <span class="confirm-delete-button">&#10006; Potwierdź</span>
-            </div>
-        </div>
+
+        <!-- Wyświetlanie wiadomości w dymkach -->
+        <div id="messages-container"></div>
 
         <!-- Pole do wpisywania wiadomości -->
-        <input type="text" class="message-input" placeholder="Wpisz wiadomość...">
+        <input type="text" id="message-input" class="message-input" placeholder="Wpisz wiadomość...">
         
         <!-- Przycisk do wysyłania wiadomości -->
-        <button class="send-button">Wyślij</button>
+        <button class="send-button" onclick="sendMessage()">Wyślij</button>
     </div>
 
     <script>
@@ -173,6 +160,51 @@
                 });
             });
         });
+
+        // JavaScript do obsługi wiadomości
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input').value;
+            if (messageInput.trim() !== '') {
+                const messagesContainer = document.getElementById('messages-container');
+                const messageBubble = document.createElement('div');
+                messageBubble.classList.add('message-bubble');
+
+                const messageText = document.createElement('p');
+                messageText.textContent = messageInput;
+
+                const timestamp = document.createElement('div');
+                timestamp.classList.add('message-timestamp');
+                const now = new Date();
+                const timestampText = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+                timestamp.textContent = timestampText;
+
+                const deleteButton = document.createElement('span');
+                deleteButton.classList.add('delete-button');
+                deleteButton.innerHTML = '&#10006;';
+
+                const confirmDeleteButton = document.createElement('span');
+                confirmDeleteButton.classList.add('confirm-delete-button');
+                confirmDeleteButton.innerHTML = '&#10006; Potwierdź';
+
+                deleteButton.addEventListener('click', function () {
+                    confirmDeleteButton.style.display = 'block';
+
+                    confirmDeleteButton.addEventListener('click', function () {
+                        messageBubble.remove();
+                    });
+                });
+
+                messageBubble.appendChild(messageText);
+                messageBubble.appendChild(timestamp);
+                messageBubble.appendChild(deleteButton);
+                messageBubble.appendChild(confirmDeleteButton);
+
+                messagesContainer.appendChild(messageBubble);
+
+                // Czyszczenie pola wpisywania
+                document.getElementById('message-input').value = '';
+            }
+        }
     </script>
 </body>
 </html>
