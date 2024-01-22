@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MB W163 ML55 AMG</title>
+    <title>Strona z Kafelkami</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -151,9 +151,11 @@
         }
 
         .settings-tile {
-            width: 50px;
-            height: 50px;
+            width: auto;
+            padding: 10px;
             margin: 10px;
+            background-color: #4CAF50;
+            color: white;
             border: 1px solid #ccc;
             text-align: center;
             cursor: pointer;
@@ -171,23 +173,12 @@
         }
 
         .settings-tile-label {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            font-size: 12px;
+            font-size: 18px;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            z-index: 1;
         }
     </style>
 </head>
 <body>
-    <div class="settings-tile">
-        <div class="settings-tile-label">u</div>
-    </div>
-
     <h1>Mercedes-Benz W163 ML55 AMG</h1>
 
     <div class="tile-container">
@@ -227,6 +218,10 @@
                 <span id="confirm-delete-no">Nie</span>
             </div>
         </div>
+    </div>
+
+    <div class="settings-tile" onclick="goToSettings()">
+        <div class="settings-tile-label">USTAWIENIA</div>
     </div>
 
     <script>
