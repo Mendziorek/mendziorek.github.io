@@ -150,7 +150,7 @@
         }
 
         .settings-tile {
-            width: 50px;
+            width: 100%;
             height: 50px;
             margin: 10px;
             border: 1px solid #ccc;
@@ -167,21 +167,13 @@
             transform: scale(1.05);
         }
 
-        .settings-tile img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-
         .settings-tile-label {
             position: absolute;
             bottom: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
-            font-size: 12px;
+            font-size: 18px;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             z-index: 1;
@@ -189,6 +181,10 @@
     </style>
 </head>
 <body>
+    <a href="techniczna.html" class="settings-tile">
+        <div class="settings-tile-label">Ustawienia</div>
+    </a>
+
     <h1>Mercedes-Benz W163 ML55 AMG</h1>
 
     <div class="tile-container">
@@ -206,11 +202,6 @@
             <img src="transmission.jpeg" alt="ASB">
             <div class="tile-label">ASB</div>
         </a>
-
-        <a href="techniczna.html" class="settings-tile">
-            <img src="settings.jpg" alt="Ustawienia">
-            <div class="settings-tile-label">Ustawienia</div>
-        </a>
     </div>
 
     <div class="notes-section">
@@ -222,22 +213,4 @@
         <!-- Przycisk do wysyłania wiadomości -->
         <button class="send-button" onclick="sendMessage()">Wyślij</button>
 
-        <!-- Kontener na dymki z wiadomościami -->
-        <div id="message-bubbles" class="message-bubbles"></div>
-
-        <!-- Okno potwierdzające usuwanie wiadomości -->
-        <div id="confirm-delete" class="confirm-delete-button">
-            Czy na pewno chcesz usunąć tę wiadomość?
-            <div>
-                <span id="confirm-delete-yes">Tak</span>
-                <span id="confirm-delete-no">Nie</span>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Kod JavaScript
-        // ...
-    </script>
-</body>
-</html>
+        <!-- Kontener na dymki z wiadomościami
