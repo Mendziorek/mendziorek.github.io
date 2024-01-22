@@ -150,7 +150,7 @@
         }
 
         .settings-tile {
-            width: 100%;
+            width: 50px;
             height: 50px;
             margin: 10px;
             border: 1px solid #ccc;
@@ -173,7 +173,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
-            font-size: 18px;
+            font-size: 12px;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             z-index: 1;
@@ -181,9 +181,9 @@
     </style>
 </head>
 <body>
-    <a href="techniczna.html" class="settings-tile">
+    <div class="settings-tile">
         <div class="settings-tile-label">Ustawienia</div>
-    </a>
+    </div>
 
     <h1>Mercedes-Benz W163 ML55 AMG</h1>
 
@@ -213,4 +213,22 @@
         <!-- Przycisk do wysyłania wiadomości -->
         <button class="send-button" onclick="sendMessage()">Wyślij</button>
 
-        <!-- Kontener na dymki z wiadomościami
+        <!-- Kontener na dymki z wiadomościami -->
+        <div id="message-bubbles" class="message-bubbles"></div>
+
+        <!-- Okno potwierdzające usuwanie wiadomości -->
+        <div id="confirm-delete" class="confirm-delete-button">
+            Czy na pewno chcesz usunąć tę wiadomość?
+            <div>
+                <span id="confirm-delete-yes">Tak</span>
+                <span id="confirm-delete-no">Nie</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Kod JavaScript
+        // ...
+    </script>
+</body>
+</html>
