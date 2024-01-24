@@ -211,9 +211,7 @@
         <div id="message-bubbles" class="message-bubbles"></div>
 
         <!-- Okno potwierdzające usuwanie wiadomości -->
-        <div id="confirm-delete" class
-
-="confirm-delete-button">
+        <div id="confirm-delete" class="confirm-delete-button">
             Czy na pewno chcesz usunąć tę wiadomość?
             <div>
                 <span id="confirm-delete-yes">Tak</span>
@@ -222,14 +220,81 @@
         </div>
     </div>
 
-    <a href="techniczna.html" class="settings-tile">
+    <div class="settings-tile" onclick="goToSettings()">
         <div class="settings-tile-label">USTAWIENIA</div>
-    </a>
+    </div>
 
     <script>
-        // Funkcje JavaScript
-        // ...
+        // Kod JavaScript
+        // Funkcje do obsługi wiadomości
+        function sendMessage() {
+            var messageInput = document.getElementById("message-input");
+            var messageText = messageInput.value.trim();
+
+            if (messageText !== "") {
+                var currentDate = new Date();
+                var timestamp = currentDate.toLocaleString();
+
+                // Tworzenie nowej dymki z wiadomością
+                var messageBubble = document.createElement("div");
+                messageBubble.className = "message-bubble";
+
+                var messageContent = document.createElement("div");
+                messageContent.className = "message-content";
+                messageContent.innerText = messageText;
+
+                var messageTimestamp = document.createElement("div");
+                messageTimestamp.className = "message-timestamp";
+                messageTimestamp.innerText = timestamp;
+
+                var deleteButton = document.createElement("div");
+                deleteButton.className = "delete-button";
+                deleteButton.innerText = "Usuń";
+                deleteButton.onclick = function () {
+                    showConfirmDelete(messageBubble);
+                };
+
+                messageBubble.appendChild(messageContent);
+                messageBubble.appendChild(messageTimestamp);
+                messageBubble.appendChild(deleteButton);
+
+                // Dodawanie dymki do kontenera
+                var messageBubblesContainer = document.getElementById("message-bubbles");
+                messageBubblesContainer.appendChild(messageBubble);
+
+                // Czyszczenie pola wprowadzania wiadomości
+                messageInput.value = "";
+            }
+        }
+
+        // Funkcja do pokazywania okna potwierdzającego usuwanie
+        function showConfirmDelete(messageBubble) {
+            var confirmDelete = document.getElementById("confirm-delete");
+            var confirmYes = document.getElementById("confirm-delete-yes");
+            var confirmNo = document.getElementById("confirm-delete-no");
+
+            // Pokazywanie okna potwierdzającego
+            confirmDelete.style.display = "block";
+
+            // Obsługa potwierdzającego kliknięcia "Tak"
+            confirmYes.onclick = function () {
+                // Usuwanie wiadomości
+                messageBubble.remove();
+                // Ukrywanie okna potwierdzającego
+                confirmDelete.style.display = "none";
+            };
+
+            // Obsługa potwierdzającego kliknięcia "Nie"
+            confirmNo.onclick = function () {
+                // Ukrywanie okna potwierdzającego
+                confirmDelete.style.display = "none";
+            };
+        }
+
+        // Funkcja do przechodzenia do strony ustawień
+        function goToSettings() {
+            window.location.href = "techniczna.html";
+        }
     </script>
 </body>
 </html>
-```
