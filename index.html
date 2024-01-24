@@ -227,6 +227,7 @@
     <script>
         // Kod JavaScript
         // Funkcje do obsługi wiadomości
+
         function sendMessage() {
             var messageInput = document.getElementById("message-input");
             var messageText = messageInput.value.trim();
@@ -262,12 +263,14 @@
                 var messageBubblesContainer = document.getElementById("message-bubbles");
                 messageBubblesContainer.appendChild(messageBubble);
 
+                // Zapisywanie wiadomości w localStorage
+                saveMessageLocally(messageText, timestamp);
+
                 // Czyszczenie pola wprowadzania wiadomości
                 messageInput.value = "";
             }
         }
 
-        // Funkcja do pokazywania okna potwierdzającego usuwanie
         function showConfirmDelete(messageBubble) {
             var confirmDelete = document.getElementById("confirm-delete");
             var confirmYes = document.getElementById("confirm-delete-yes");
@@ -291,10 +294,59 @@
             };
         }
 
-        // Funkcja do przechodzenia do strony ustawień
         function goToSettings() {
             window.location.href = "techniczna.html";
         }
+
+        // Funkcja do zapisywania wiadomości w localStorage
+        function saveMessageLocally(message, timestamp) {
+            var savedMessages = JSON.parse(localStorage.getItem("savedMessages")) || [];
+
+            var newMessage = {
+                message: message,
+                timestamp: timestamp
+            };
+
+            savedMessages.push(newMessage);
+
+            localStorage.setItem("savedMessages", JSON.stringify(savedMessages));
+        }
+
+        // Funkcja do wczytywania wiadomości z localStorage i aktualizacji interfejsu
+        function loadMessagesFromStorage() {
+            var savedMessages = JSON.parse(localStorage.getItem("savedMessages")) || [];
+
+            var messageBubblesContainer = document.getElementById("message-bubbles");
+
+            savedMessages.forEach(function (savedMessage) {
+                var messageBubble = document.createElement("div");
+                messageBubble.className = "message-bubble";
+
+                var messageContent = document.createElement("div");
+                messageContent.className = "message-content";
+                messageContent.innerText = savedMessage.message;
+
+                var messageTimestamp = document.createElement("div");
+                messageTimestamp.className = "message-timestamp";
+                messageTimestamp.innerText = savedMessage.timestamp;
+
+                var deleteButton = document.createElement("div");
+                deleteButton.className = "delete-button";
+                deleteButton.innerText = "Usuń";
+                deleteButton.onclick = function () {
+                    showConfirmDelete(messageBubble);
+                };
+
+                messageBubble.appendChild(messageContent);
+                messageBubble.appendChild(messageTimestamp);
+                messageBubble.appendChild(deleteButton);
+
+                messageBubblesContainer.appendChild(messageBubble);
+            });
+        }
+
+        // Wywołanie funkcji wczytującej wiadomości po załadowaniu strony
+        loadMessagesFromStorage();
     </script>
 </body>
 </html>
